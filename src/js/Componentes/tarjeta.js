@@ -1,4 +1,5 @@
 import { ObtenerProductos } from "../api.js";
+import { RenderizarModal } from "./modal.js";
 
 export function RenderizarTarjetas() {
     let listaDeProductos = document.querySelector("#lista-de-productos");
@@ -14,10 +15,20 @@ export function RenderizarTarjetas() {
                     <div class="card-body" style="width: 300px;">
                         <h5 class="card-title text-truncate">${producto.title}</h5>
                     </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-dark" id="btn-${producto.id}">Más detalles!</button>
+                    </div>
                 </div>
             </div>`;
         });
 
         listaDeProductos.innerHTML = template;
+
+        productos.forEach((producto) => {
+            let botonParaMostrarElModal = document.querySelector(`#btn-${producto.id}`);
+            botonParaMostrarElModal.addEventListener("click", () => {
+                RenderizarModal(producto);
+            });
+        });
     });
 }
